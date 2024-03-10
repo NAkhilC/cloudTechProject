@@ -14,12 +14,12 @@ spec:
     spec:
       containers:
         - name: nodejs-app
-          image: akhil2715/my-node-app:prod
+          image: akhil2715/my-node-app:dev
           ports:
-            - containerPort: 8080
+            - containerPort: 3000
           env:
             - name: PORT
-              value: "8080"
+              value: "3000"
             - name: API_KEY
               value: "devkey"
 ---
@@ -33,7 +33,7 @@ spec:
   ports:
     - protocol: TCP
       port: 80
-      targetPort: 8080
+      targetPort: 3000
   type: ClusterIP
 ---
 apiVersion: route.openshift.io/v1
@@ -46,4 +46,4 @@ spec:
     name: nodejs-app-service
     weight: 100
   port:
-    targetPort: 8080
+    targetPort: 3000
