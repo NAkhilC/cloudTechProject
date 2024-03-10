@@ -17,9 +17,6 @@ spec:
           image: akhil2715/my-node-app:prod
           ports:
             - containerPort: 8080
-          env:
-            - name: API_KEY
-              value: devkey
 ---
 apiVersion: v1
 kind: Service
