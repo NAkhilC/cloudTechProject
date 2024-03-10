@@ -17,6 +17,7 @@ spec:
           image: akhil2715/my-node-app:dev
           ports:
             - containerPort: 3000
+              protocol: TCP
           env:
             - name: PORT
               value: "3000"
@@ -31,8 +32,9 @@ spec:
   selector:
     app: nodejs-app
   ports:
-    - protocol: TCP
-      port: 80
+    - name: 3000-tcp
+      protocol: TCP
+      port: 3000
       targetPort: 3000
   type: ClusterIP
 ---
