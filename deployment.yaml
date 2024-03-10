@@ -1,54 +1,49 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: spring-boot-app-deployment
+  name: nodejs-app
 spec:
+  replicas: 1
   selector:
     matchLabels:
-      app: spring-boot-app
-  replicas: 1
+      app: nodejs-app
   template:
     metadata:
       labels:
-        app: spring-boot-app
+        app: nodejs-app
     spec:
-       containers:
-      - image: akhil2715/my-node-app:prod
-        name: my-node-app
-        env:
-          - name: PORT
-            value: '3000'
-        securityContext:
-          capabilities:
-            drop:
-              - ALL
-          runAsUser: 1015880000
-          runAsNonRoot: true
-          allowPrivilegeEscalation: false
-        ports:
-          - name: user-port
-            containerPort: 3000
-            protocol: TCP
-        imagePullPolicy: Always
+      containers:
+        - name: nodejs-app
+          image: akhil2715/my-node-app:prod
+          ports:
+            - containerPort: 3000
+          env:
+            - name: ENV_VARIABLE_1
+              value: value1
+            - name: ENV_VARIABLE_2
+              value: value2
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: spring-boot-app-service
+  name: nodejs-app-service
 spec:
   selector:
-    app: spring-boot-app
+    app: nodejs-app
   ports:
-    - port: 3000
+    - protocol: TCP
+      port: 80
       targetPort: 3000
+  type: ClusterIP
 ---
 apiVersion: route.openshift.io/v1
 kind: Route
 metadata:
-  name: spring-boot-app-route
+  name: nodejs-app-route
 spec:
   to:
     kind: Service
-    name: spring-boot-app-service
+    name: nodejs-app-service
+    weight: 100
   port:
     targetPort: 3000
