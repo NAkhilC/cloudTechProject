@@ -12,11 +12,24 @@ spec:
       labels:
         app: spring-boot-app
     spec:
-      containers:
-        - name: spring-boot-app
-          image: akhil2715/my-node-app:prod
-          ports:
-            - containerPort: 3000
+       containers:
+      - image: akhil2715/my-node-app:latest
+        name: my-node-app
+        env:
+          - name: PORT
+            value: '3000'
+        securityContext:
+          capabilities:
+            drop:
+              - ALL
+          runAsUser: 1015880000
+          runAsNonRoot: true
+          allowPrivilegeEscalation: false
+        ports:
+          - name: user-port
+            containerPort: 3000
+            protocol: TCP
+        imagePullPolicy: Always
 ---
 apiVersion: v1
 kind: Service
