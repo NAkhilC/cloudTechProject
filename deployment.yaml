@@ -31,8 +31,7 @@ spec:
   selector:
     app: nodejs-app
   ports:
-    - name: 3000-tcp
-      protocol: TCP
+    - protocol: TCP
       port: 80
       targetPort: 3000
   type: ClusterIP
