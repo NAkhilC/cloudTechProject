@@ -27,7 +27,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: nodejs-app-service
+  name: nodejs-app
 spec:
   selector:
     app: nodejs-app
@@ -41,11 +41,11 @@ spec:
 apiVersion: route.openshift.io/v1
 kind: Route
 metadata:
-  name: nodejs-app-route
+  name: nodejs-app
 spec:
   to:
     kind: Service
-    name: nodejs-app-service
+    name: nodejs-app
     weight: 100
   port:
     targetPort: 3000
