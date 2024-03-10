@@ -33,7 +33,8 @@ spec:
   ports:
     - name: 3000-tcp
       protocol: TCP
-      port: 3000
+      port: 80
+      nodePort: 30253
       targetPort: 3000
   type: ClusterIP
 ---
