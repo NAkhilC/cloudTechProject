@@ -30,3 +30,15 @@ spec:
       port: 80
       targetPort: 3000
   type: LoadBalancer
+---
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: nodejs-app-route
+spec:
+  path: /
+  to:
+    kind: Service
+    name: nodejs-app-service
+  port:
+    targetPort: 3000
