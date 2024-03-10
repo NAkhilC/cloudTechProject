@@ -43,6 +43,7 @@ kind: Route
 metadata:
   name: nodejs-app
 spec:
+  path: /
   to:
     kind: Service
     name: nodejs-app
