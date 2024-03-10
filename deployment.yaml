@@ -17,6 +17,11 @@ spec:
         runAsUser: 1015880000 # Update the UID as required.
         #runAsUser: 0  # Update the UID to root.
       containers:
+        - env:
+           - name: API_KEY
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.API_KEY      
         - image: akhil2715/my-node-app:prod
           name: nodejs-api
           imagePullPolicy: Always
