@@ -14,11 +14,14 @@ spec:
         app: sample-nodejs
     spec:
       containers:
-        - image: akhil2715/my-node-app:dev
+        - image: akhil2715/my-node-app:prod
           name: nodejs-api
           imagePullPolicy: Always
           ports:
             - containerPort: 3000
+          env:
+            - name: API_KEY
+              value: thisisprodkeysec
 ---
 apiVersion: v1
 kind: Service
