@@ -17,6 +17,9 @@ spec:
           image: akhil2715/my-node-app:prod
           ports:
             - containerPort: 3000
+          env:
+            - name: API_KEY
+              value: thisisprodKey
 ---
 kind: Service
 apiVersion: v1
@@ -30,7 +33,6 @@ spec:
       targetPort: 3000
   selector:
     app: my-node-app
-    deploymentconfig: my-node-app
 ---
 kind: Route
 apiVersion: route.openshift.io/v1
