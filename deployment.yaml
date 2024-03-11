@@ -14,7 +14,7 @@ spec:
         app: sample-nodejs
     spec:
       containers:
-        - image: akhil2715/my-node-app:latest
+        - image: akhil2715/my-node-app:dev
           name: nodejs-api
           imagePullPolicy: Always
           ports:
