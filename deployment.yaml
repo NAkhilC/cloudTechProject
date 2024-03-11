@@ -1,45 +1,48 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: nodejs-app
+  name: sample-nodejs
+  labels:
+    app: sample-nodejs
 spec:
-  replicas: 1
   selector:
     matchLabels:
-      app: nodejs-app
+      app: sample-nodejs
   template:
     metadata:
       labels:
-        app: nodejs-app
+        app: sample-nodejs
     spec:
       containers:
-        - name: nodejs-app
-          image: akhil2715/my-node-app:dev
+        - image: akhil2715/my-node-app:latest
+          name: nodejs-api
+          imagePullPolicy: Always
           ports:
             - containerPort: 3000
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: nodejs-app-service
+  name: sample-nodejs-service
 spec:
-  selector:
-    app: nodejs-app
   ports:
-    - protocol: TCP
-      port: 3000
+    - name: sample-nodejs-port-service
       targetPort: 3000
-  type: ClusterIP
+      port: 3000
+      nodePort: 30253
+      protocol: TCP
+  selector:
+    app: sample-nodejs
+  type: NodePort
 ---
 apiVersion: route.openshift.io/v1
 kind: Route
 metadata:
-  name: nodejs-app-route
+  name: akhil
 spec:
   path: /
   to:
     kind: Service
-    name: nodejs-app-service
-    weight: 100
+    name: sample-nodejs-service
   port:
     targetPort: 3000
